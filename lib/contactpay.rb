@@ -2,11 +2,8 @@
 
 require "contactpay/config"
 require "contactpay/version"
-require "contactpay/account"
-require "contactpay/balance"
-require "contactpay/transaction"
-require "contactpay/deposit"
 require "contactpay/withdraw"
+require "contactpay/invoice"
 
 # Head module
 module Contactpay
