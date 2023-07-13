@@ -5,6 +5,7 @@
 # Includes methods common to collections, disbursements and remittances
 
 require "faraday"
+require "digest"
 
 require "contactpay/config"
 require "contactpay/errors"
@@ -12,13 +13,10 @@ require "contactpay/errors"
 module Contactpay
   # Base API client
   class Client
-    def send_request(method, path, headers, body = {})
+    def send_request(path:, headers: {}, body: nil, signature_fields: [])
       conn = faraday_with_block(url: Contactpay.config.base_url)
-      conn.headers = headers
-      case method
-      when "get" then response = conn.get(path)
-      when "post" then response = conn.post(path, body.to_json)
-      end
+      conn.headers = default_headers.merge(headers)
+      response = conn.post(path, sign_body(body, signature_fields).to_json)
       interpret_response(response)
     end
 
@@ -42,6 +40,26 @@ module Contactpay
     end
 
     private
+
+    def sign_body(body, signature_fields)
+      body.merge({
+        'sign' => generate_sign(body, signature_fields)
+      })
+    end
+
+    def default_headers
+      {
+        "Content-Type" => "application/json; charset=utf-8",
+        "accept" => "application/json"
+      }
+    end
+
+    def generate_sign(body, signature_fields)
+      signature_fields_hash = body.slice(*signature_fields)
+      key = Contactpay.config.account_secret_key
+      line = Hash[signature_fields_hash.sort].values.join(':') + key
+      Digest::SHA2.hexdigest line
+    end
 
     def faraday_with_block(options)
       Faraday.new(options)
