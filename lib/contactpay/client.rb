@@ -42,6 +42,8 @@ module Contactpay
     private
 
     def sign_body(body, signature_fields)
+      return body if signature_fields.blank?
+
       body.merge({
         'sign' => generate_sign(body, signature_fields)
       })
