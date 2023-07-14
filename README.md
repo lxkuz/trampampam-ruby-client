@@ -1,24 +1,200 @@
 # Contactpay
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/contactpay`. To experiment with that code, run `bin/console` for an interactive prompt.
+Ruby client for Contactpay API
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add contactpay
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install contactpay
 
 ## Usage
 
-TODO: Write usage instructions here
+### Configure
+
+When you get your Site approved you can use it's secret key for making API requests.
+
+```ruby
+  require 'contactpay'
+
+  Contactpay.configure do |config|
+    config.base_url = "<BASE API URL>" # "https://api.contactpay.com.com"
+    config.account_secret_key = "<YOUR ACCOUNT SECRET KEY>"
+  end
+```
+Now you can make API calls
+
+### Balance
+
+#### To get yoour account balance:
+```ruby
+  Contactpay::Shop.new.balance
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/other-shop-methods/operation/post-shop-balance)
+
+### Invoice
+
+#### To get invoice prelim calculation result:
+
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.prelim_calc(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-try)
+
+#### To create invoice:
+
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.create(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-create)
+
+#### To get invoice status:
+
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.status(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-check)
+
+#### To charge hold funds:
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.hold_funds(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-hold)
+
+#### To charge invoice funds:
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.charge(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-charge)
+
+#### To charge unhold funds:
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.unhold_funds(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-unhold)
+
+####  To get payment methods for input
+```ruby
+  data = { ... }
+  Contactpay::Invoice.new.payment_methods(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-shop-input-config-shop)
+
+### Withdraw
+
+#### To get withdraw prelim calculation result:
+
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.prelim_calc(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-try)
+
+#### To check the account for the possibility of replenishment:
+
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.check_account(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-check-account)
+
+#### To create withdraw:
+
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.create(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-create)
+
+
+#### To get withdraw status by ID:
+
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.status_by_id(data)
+```
+
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-status)
+
+#### To get withdraw status by shop payout number:
+
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.status_by_shop_number(data)
+```
+
+#### To get possible payout methods
+```ruby
+  data = { ... }
+  Contactpay::Withdraw.new.payment_methods(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-shop-output-config-shop)
+
+### Refund
+
+#### Invoice refund
+```ruby
+  data = { ... }
+  Contactpay::Refund.new.create(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-refund/operation/post-invoice-create-refund)
+
+#### Invoice refund status
+```ruby
+  data = { ... }
+  Contactpay::Refund.new.status(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-refund/operation/post-invoice-get-status-refunds)
+
+### Recurrent invoice
+
+#### Payment token issue
+```ruby
+  data = { ... }
+  Contactpay::PaymentToken.new.create(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-create-payment-token)
+
+#### Payment token issue confirmation
+
+```ruby
+  data = { ... }
+  Contactpay::PaymentToken.new.complete(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-complete-payment-token)
+
+#### Payment token issue status
+
+```ruby
+  data = { ... }
+  Contactpay::PaymentToken.new.status(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-get-status-payment-token)
+
+#### Payment token deletion
+
+```ruby
+  data = { ... }
+  Contactpay::PaymentToken.new.delete(data)
+```
+See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-delete-payment-token)
+
 
 ## Development
 
