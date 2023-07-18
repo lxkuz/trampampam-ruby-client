@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "contactpay/config"
-require "contactpay/client"
+require 'contactpay/config'
+require 'contactpay/client'
 
 module Contactpay
   # PaymentToken API
   class PaymentToken < Client
     def create(data)
-      path = "/gateway/v1/payment-token/create"
+      path = '/gateway/v1/payment-token/create'
       signature_fields = %w[
         payway
         shop_id
@@ -19,8 +19,8 @@ module Contactpay
     end
 
     def status(data)
-      path = "gateway/v1/payment-token/status"
-      signature_fields = if data["token"].present?
+      path = 'gateway/v1/payment-token/status'
+      signature_fields = if data['token'].present?
                            %w[now token]
                          else
                            %w[now shop_id shop_request_id]
@@ -40,7 +40,7 @@ module Contactpay
     end
 
     def delete(data)
-      path = "gateway/v1/payment-token/delete"
+      path = 'gateway/v1/payment-token/delete'
       signature_fields = %w[
         token
       ]

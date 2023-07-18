@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "contactpay/config"
-require "contactpay/client"
+require 'contactpay/config'
+require 'contactpay/client'
 
 module Contactpay
   # Shop API
   class Shop < Client
     def balance
-      path = "/gateway/v1/shop_balance"
+      path = '/gateway/v1/shop_balance'
       signature_fields = %w[
         now
         shop_id

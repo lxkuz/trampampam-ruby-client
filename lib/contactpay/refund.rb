@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "contactpay/config"
-require "contactpay/client"
+require 'contactpay/config'
+require 'contactpay/client'
 
 module Contactpay
   # refund API
   class Refund < Client
     def create(data)
-      path = "/gateway/v1/invoice/create-refund"
+      path = '/gateway/v1/invoice/create-refund'
       signature_fields = %w[
         amount
         invoice_id
@@ -20,7 +20,7 @@ module Contactpay
     end
 
     def status(data)
-      path = "/gateway/v1/invoice/get-refunds"
+      path = '/gateway/v1/invoice/get-refunds'
       signature_fields = %w[
         invoice_id
         now

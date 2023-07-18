@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
-require "contactpay/config"
-require "contactpay/client"
+require 'contactpay/config'
+require 'contactpay/client'
 
 module Contactpay
   # Withdraw API
   class Withdraw < Client
     def prelim_calc(data)
-      path = "/gateway/v1/withdraw/try"
+      path = '/gateway/v1/withdraw/try'
       signature_fields = %w[
-        amount
-        amount_type
-        payway
-        shop_currency
-        shop_id
+        amount amount_type
+        payway shop_currency shop_id
       ]
       send_request(path: path, body: data, options: {
                      signature_fields: signature_fields
@@ -21,7 +18,7 @@ module Contactpay
     end
 
     def check_account(data)
-      path = "/gateway/v1/check_account"
+      path = '/gateway/v1/check_account'
       signature_fields = %w[account amount payway shop_id]
       send_request(path: path, body: data, options: {
                      signature_fields: signature_fields
@@ -29,23 +26,16 @@ module Contactpay
     end
 
     def create(data)
-      path = "/gateway/v1/withdraw/create"
-      signature_fields = %w[
-        account
-        amount
-        amount_type
-        payway
-        shop_currency
-        shop_id
-        shop_payment_id
-      ]
+      path = '/gateway/v1/withdraw/create'
+      signature_fields = %w[account amount amount_type payway
+                            shop_currency shop_id shop_payment_id]
       send_request(path: path, body: data, options: {
                      signature_fields: signature_fields
                    })
     end
 
     def status_by_id(data)
-      path = "/gateway/v1/withdraw/status"
+      path = '/gateway/v1/withdraw/status'
       signature_fields = %w[
         now
         shop_id
@@ -58,7 +48,7 @@ module Contactpay
     end
 
     def status_by_shop_number(data)
-      path = "/gateway/v1/withdraw/shop_payment_status"
+      path = '/gateway/v1/withdraw/shop_payment_status'
       signature_fields = %w[
         now
         shop_id
@@ -71,18 +61,12 @@ module Contactpay
     end
 
     def payment_methods
-      path = "/gateway/v1/shop_output_config/shop"
-      signature_fields = %w[
-        now
-        shop_id
-      ]
-      send_request(
-        path: path,
-        options: {
-          signature_fields: signature_fields,
-          time_now: true
-        }
-      )
+      path = '/gateway/v1/shop_output_config/shop'
+      signature_fields = %w[now shop_id]
+      send_request(path: path, options: {
+                     signature_fields: signature_fields,
+                     time_now: true
+                   })
     end
   end
 end
