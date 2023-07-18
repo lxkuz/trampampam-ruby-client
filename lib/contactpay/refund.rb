@@ -14,7 +14,9 @@ module Contactpay
         shop_id
         shop_refund_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
 
     def status(data)
@@ -24,7 +26,10 @@ module Contactpay
         now
         shop_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
   end
 end

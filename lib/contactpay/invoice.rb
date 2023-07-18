@@ -15,7 +15,9 @@ module Contactpay
         shop_id
         shop_order_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
 
     def create(data)
@@ -27,7 +29,9 @@ module Contactpay
         shop_id
         shop_order_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
 
     def status(data)
@@ -37,7 +41,10 @@ module Contactpay
         shop_id
         shop_order_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
 
     def hold_funds(data)
@@ -49,7 +56,9 @@ module Contactpay
         shop_id
         shop_order_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
 
     def charge(data)
@@ -59,7 +68,10 @@ module Contactpay
         now
         shop_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
 
     def unhold_funds(data)
@@ -69,7 +81,10 @@ module Contactpay
         now
         shop_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
 
     def payment_methods(data)
@@ -78,7 +93,10 @@ module Contactpay
         now
         shop_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
   end
 end

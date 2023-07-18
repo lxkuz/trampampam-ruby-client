@@ -13,7 +13,9 @@ module Contactpay
         shop_id
         shop_request_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
 
     def status(data)
@@ -23,13 +25,18 @@ module Contactpay
       else
         %w(now shop_id shop_request_id)
       end
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
 
     def complete(data, session_uid)
       path = "gateway/v1/payment-token/complete/#{session_uid}"
       # TODO: figure out signature_fields
-      send_request(path: path, body: data, signature_fields: nil)
+      send_request(path: path, body: data, options: {
+        signature_fields: nil
+      })
     end
 
     def delete(data)
@@ -37,7 +44,9 @@ module Contactpay
       signature_fields = %w(
         token
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, body: data, options: {
+        signature_fields: signature_fields
+      })
     end
   end
 end

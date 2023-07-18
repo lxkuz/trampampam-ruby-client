@@ -13,10 +13,10 @@ require "contactpay/errors"
 module Contactpay
   # Base API client
   class Client
-    def send_request(path:, headers: {}, body: nil, signature_fields: [])
+    def send_request(path:, headers: {}, body: {}, options: {})
       conn = faraday_with_block(url: Contactpay.config.base_url)
       conn.headers = default_headers.merge(headers)
-      response = conn.post(path, prepare_body(body, signature_fields).to_json)
+      response = conn.post(path, prepare_body(body, options).to_json)
       interpret_response(response)
     end
 
@@ -36,10 +36,12 @@ module Contactpay
 
     private
 
-    def prepare_body(body, signature_fields)
-      result = {
-        'shop_id' => Contactpay.config.shop_id
-      }.merge(body)
+    def prepare_body(body, options)
+      signature_fields = options[:signature_fields] || []
+      time_now = options[:time_now]
+      result = { 'shop_id' => Contactpay.config.shop_id }
+      result['now'] = build_time_now if time_now
+      result.merge!(body)
       result['sign'] = generate_sign(result, signature_fields)
       result
     end
@@ -68,7 +70,7 @@ module Contactpay
       end
     end
 
-    def time_now
+    def build_time_now
       Time.now.strftime('%Y-%m-%dT%H:%M:%S')
     end
   end

@@ -7,15 +7,15 @@ module Contactpay
   # Shop API
   class Shop < Client
     def balance
-      data = {
-        'now' => time_now
-      }
       path = "/gateway/v1/shop_balance"
       signature_fields = %w(
         now
         shop_id
       )
-      send_request(path: path, body: data, signature_fields: signature_fields)
+      send_request(path: path, options: {
+        signature_fields: signature_fields,
+        time_now: true
+      })
     end
   end
 end
