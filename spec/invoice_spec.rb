@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "pry"
 
 RSpec.describe Contactpay::Invoice do
   before do
     Contactpay.configure do |config|
-      config.base_url = "https://api.contactpay.com"
-      config.account_secret_key = "account-secret-key"
+      config.base_url = "https://api-test.contactpay.io"
+      config.account_secret_key = "593156648d1c420dad278c4e723b5741"
+      config.shop_id = 357
     end
+
+    Timecop.freeze(Time.parse("2023-07-18T13:23:41"))
   end
 
   let(:invoice) { described_class.new }
@@ -20,7 +22,6 @@ RSpec.describe Contactpay::Invoice do
 
       let(:request_data) do
         {
-          "shop_id" => 79834981,
           "shop_order_id"  => "117",
           "amount" => "299.45",
           "currency" => 840,

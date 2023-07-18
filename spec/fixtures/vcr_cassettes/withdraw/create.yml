@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/withdraw/create
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":357,"shop_currency":643,"payway":"qiwi_topup_rub_to_wallet[mock_server,success]","amount":100.23,"account":"79991112233","amount_type":"ps_amount","shop_payment_id":"shop_payment_111","description":"It''s
+        payout for my friend","sign":"e8f172899c4a74e9c2059b67b0bd03d4534b75b10f1a39e59456aabbe7264047"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Jul 2023 18:41:22 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '220'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":{"balance":20000.0,"id":48581287,"payee_receive":100.23,"ps_currency":643,"shop_currency":643,"shop_payment_id":"shop_payment_111","shop_write_off":102.23,"status":3},"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 08:23:41 GMT
+recorded_with: VCR 5.1.0

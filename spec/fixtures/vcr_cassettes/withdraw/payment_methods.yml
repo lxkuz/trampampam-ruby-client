@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/shop_output_config/shop
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":357,"now":"2023-07-18T13:23:41","sign":"4ef5d8ea9f8cbcd417b35a283fce7f920a26b702f39c9caea9b151f37f365bec"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Jul 2023 16:52:37 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1648'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"id":1,"name":"Test pay method","payways":[{"account_info_config":{"account":{"regex":"^[0-9]{11,12}$","title":"your
+        account"}},"alias":"qiwi_topup_rub_to_wallet[mock_server,success]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":100000.0,"min_amount":5.0},{"account_info_config":{"account":{"regex":"^[0-9]{13,19}$","title":"your
+        account"},"phone":{"regex":"\\d+","title":"customer phone"}},"alias":"qiwi_topup_rub_to_card[mock_server,success]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":10000.0,"min_amount":5.0},{"account_info_config":{"account":{"regex":"^[0-9]{11,12}$","title":"your
+        account"}},"alias":"qiwi_topup_rub_to_wallet[mock_server,fail]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":10000.0,"min_amount":1.0},{"account_info_config":{"account":{"regex":"^[0-9]{11,12}$","title":"your
+        account"}},"alias":"qiwi_topup_rub_to_wallet[mock_server,internal_server_error]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":10000.0,"min_amount":1.0},{"account_info_config":{"account":{"regex":"^[0-9]{11,12}$","title":"your
+        account"}},"alias":"qiwi_topup_rub_to_wallet[mock_server,wallet_does_not_exist]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":10000.0,"min_amount":1.0},{"account_info_config":{"account":{"regex":"^[0-9]{13,19}$","title":"your
+        account"},"phone":{"regex":"\\d+","title":"customer phone"}},"alias":"qiwi_topup_rub_to_card[mock_server,payment_forbidden]","currency":643,"fee_config":{"fix":0.0,"percent":2.0},"max_amount":10000.0,"min_amount":1.0}],"rating":1}],"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 16:52:37 GMT
+recorded_with: VCR 5.1.0
