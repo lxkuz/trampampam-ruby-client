@@ -16,7 +16,7 @@ module Contactpay
     def send_request(path:, headers: {}, body: nil, signature_fields: [])
       conn = faraday_with_block(url: Contactpay.config.base_url)
       conn.headers = default_headers.merge(headers)
-      response = conn.post(path, sign_body(body, signature_fields).to_json)
+      response = conn.post(path, prepare_body(body, signature_fields).to_json)
       interpret_response(response)
     end
 
@@ -34,19 +34,14 @@ module Contactpay
       raise Contactpay::Error.new(response_body, response_code)
     end
 
-    def prepare_get_request(path)
-      headers = {}
-      send_request("get", path, headers)
-    end
-
     private
 
-    def sign_body(body, signature_fields)
-      return body if signature_fields.blank?
-
-      body.merge({
-        'sign' => generate_sign(body, signature_fields)
-      })
+    def prepare_body(body, signature_fields)
+      result = {
+        'shop_id' => Contactpay.config.shop_id
+      }.merge(body)
+      result['sign'] = generate_sign(result, signature_fields)
+      result
     end
 
     def default_headers
@@ -71,6 +66,10 @@ module Contactpay
       else
         Faraday.new(options)
       end
+    end
+
+    def time_now
+      Time.now.strftime('%Y-%m-%dT%H:%M:%S')
     end
   end
 end
