@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/shop_balance
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":357,"now":"2023-07-18T13:23:41","sign":"4ef5d8ea9f8cbcd417b35a283fce7f920a26b702f39c9caea9b151f37f365bec"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Jul 2023 14:34:02 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '263'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":{"balances":[{"available":5889.25,"currency":978,"frozen":0.0,"hold":0.0},{"available":4388.6,"currency":643,"frozen":0.0,"hold":0.0},{"available":3285.8,"currency":840,"frozen":0.0,"hold":0.0}],"shop_id":357},"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 08:23:41 GMT
+recorded_with: VCR 5.1.0
