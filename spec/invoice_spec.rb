@@ -19,10 +19,9 @@ RSpec.describe Contactpay::Invoice do
     subject(:result) { invoice.prelim_calc(request_data) }
 
     context "when request_data is valid", vcr: "invoice/prelim_calc" do
-
       let(:request_data) do
         {
-          "shop_order_id"  => "117",
+          "shop_order_id" => "117",
           "amount" => "299.45",
           "currency" => 840,
           "payway" => "wallet_usd",
@@ -31,11 +30,10 @@ RSpec.describe Contactpay::Invoice do
       end
 
       let(:response) do
-        {
-        }
+        {}
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end

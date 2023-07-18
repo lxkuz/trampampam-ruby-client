@@ -21,31 +21,29 @@ RSpec.describe Contactpay::Shop do
     subject(:result) { invoice.balance }
 
     context "when request_data is valid", vcr: "shop/balance_ok" do
-
       let(:response) do
         {
           "data" => {
             "balances" => [
-              { "available"=>5889.25, "currency"=>978, "frozen"=>0.0, "hold"=>0.0 },
-              { "available"=>4388.6, "currency"=>643, "frozen"=>0.0, "hold"=>0.0 },
-              { "available"=>3285.8, "currency"=>840, "frozen"=>0.0, "hold"=>0.0 }
+              { "available" => 5889.25, "currency" => 978, "frozen" => 0.0, "hold" => 0.0 },
+              { "available" => 4388.6, "currency" => 643, "frozen" => 0.0, "hold" => 0.0 },
+              { "available" => 3285.8, "currency" => 840, "frozen" => 0.0, "hold" => 0.0 }
             ],
             "shop_id" => shop_id
           },
           "error_code" => 0,
           "message" => "Ok",
-          "result" => true,
+          "result" => true
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
 
     context "when shop_id is wrong", vcr: "shop/balance_shop_not_found" do
-
-      let(:shop_id) { 22222222222 }
+      let(:shop_id) { 22_222_222_222 }
 
       let(:response) do
         {
@@ -56,7 +54,7 @@ RSpec.describe Contactpay::Shop do
         }
       end
 
-      it 'returns error' do
+      it "returns error" do
         expect(result).to eql(response)
       end
     end
@@ -73,7 +71,7 @@ RSpec.describe Contactpay::Shop do
         }
       end
 
-      it 'returns error' do
+      it "returns error" do
         expect(result).to eql(response)
       end
     end

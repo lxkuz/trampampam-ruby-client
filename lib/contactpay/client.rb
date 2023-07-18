@@ -39,10 +39,10 @@ module Contactpay
     def prepare_body(body, options)
       signature_fields = options[:signature_fields] || []
       time_now = options[:time_now]
-      result = { 'shop_id' => Contactpay.config.shop_id }
-      result['now'] = build_time_now if time_now
+      result = { "shop_id" => Contactpay.config.shop_id }
+      result["now"] = build_time_now if time_now
       result.merge!(body)
-      result['sign'] = generate_sign(result, signature_fields)
+      result["sign"] = generate_sign(result, signature_fields)
       result
     end
 
@@ -56,7 +56,7 @@ module Contactpay
     def generate_sign(body, signature_fields)
       signature_fields_hash = body.slice(*signature_fields)
       key = Contactpay.config.account_secret_key
-      line = Hash[signature_fields_hash.sort].values.join(':') + key
+      line = Hash[signature_fields_hash.sort].values.join(":") + key
       Digest::SHA2.hexdigest line
     end
 
@@ -71,7 +71,7 @@ module Contactpay
     end
 
     def build_time_now
-      Time.now.strftime('%Y-%m-%dT%H:%M:%S')
+      Time.now.strftime("%Y-%m-%dT%H:%M:%S")
     end
   end
 end

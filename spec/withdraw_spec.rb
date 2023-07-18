@@ -19,7 +19,6 @@ RSpec.describe Contactpay::Withdraw do
     subject(:result) { withdraw.prelim_calc(request_data) }
 
     context "when request_data is valid", vcr: "withdraw/prelim_calc" do
-
       let(:request_data) do
         {
           "shop_currency" => 643,
@@ -50,41 +49,50 @@ RSpec.describe Contactpay::Withdraw do
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
   end
 
-
   describe "#payment_methods" do
     subject(:result) { withdraw.payment_methods }
 
     context "when request_data is valid", vcr: "withdraw/payment_methods" do
-
       let(:response) do
         {
           "data" => [{
-            "id"=>1,
-            "name"=>"Test pay method",
-            "payways"=>[
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{11,12}$",
-              "title"=>"your account"}}, "alias"=>"qiwi_topup_rub_to_wallet[mock_server,success]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>100000.0, "min_amount"=>5.0},
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{13,19}$", "title"=>"your account"}, "phone"=>{"regex"=>"\\d+", "title"=>"customer phone"}}, "alias"=>"qiwi_topup_rub_to_card[mock_server,success]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>10000.0, "min_amount"=>5.0},
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{11,12}$", "title"=>"your account"}}, "alias"=>"qiwi_topup_rub_to_wallet[mock_server,fail]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>10000.0, "min_amount"=>1.0},
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{11,12}$", "title"=>"your account"}}, "alias"=>"qiwi_topup_rub_to_wallet[mock_server,internal_server_error]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>10000.0, "min_amount"=>1.0},
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{11,12}$", "title"=>"your account"}}, "alias"=>"qiwi_topup_rub_to_wallet[mock_server,wallet_does_not_exist]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>10000.0, "min_amount"=>1.0},
-              {"account_info_config"=>{"account"=>{"regex"=>"^[0-9]{13,19}$", "title"=>"your account"}, "phone"=>{"regex"=>"\\d+", "title"=>"customer phone"}}, "alias"=>"qiwi_topup_rub_to_card[mock_server,payment_forbidden]", "currency"=>643, "fee_config"=>{"fix"=>0.0, "percent"=>2.0}, "max_amount"=>10000.0, "min_amount"=>1.0}
+            "id" => 1,
+            "name" => "Test pay method",
+            "payways" => [
+              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$",
+                                                          "title" => "your account" } }, "alias" => "qiwi_topup_rub_to_wallet[mock_server,success]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 100_000.0, "min_amount" => 5.0 },
+              {
+                "account_info_config" => { "account" => { "regex" => "^[0-9]{13,19}$", "title" => "your account" },
+                                           "phone" => { "regex" => "\\d+",
+                                                        "title" => "customer phone" } }, "alias" => "qiwi_topup_rub_to_card[mock_server,success]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 5.0
+              },
+              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,fail]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,internal_server_error]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,wallet_does_not_exist]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              {
+                "account_info_config" => { "account" => { "regex" => "^[0-9]{13,19}$", "title" => "your account" },
+                                           "phone" => { "regex" => "\\d+",
+                                                        "title" => "customer phone" } }, "alias" => "qiwi_topup_rub_to_card[mock_server,payment_forbidden]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0
+              }
             ],
-            "rating"=>1
+            "rating" => 1
           }],
           "error_code" => 0,
           "message" => "Ok",
-          "result" => true,
+          "result" => true
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
@@ -94,7 +102,6 @@ RSpec.describe Contactpay::Withdraw do
     subject(:result) { withdraw.check_account(request_data) }
 
     context "when request_data is valid", vcr: "withdraw/check_account" do
-
       let(:request_data) do
         {
           "payway" => "qiwi_topup_rub_to_wallet[mock_server,success]",
@@ -110,11 +117,11 @@ RSpec.describe Contactpay::Withdraw do
           },
           "error_code" => 0,
           "message" => "Ok",
-          "result" => true,
+          "result" => true
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
@@ -124,7 +131,6 @@ RSpec.describe Contactpay::Withdraw do
     subject(:result) { withdraw.create(request_data) }
 
     context "when request_data is valid", vcr: "withdraw/create" do
-
       let(:request_data) do
         {
           "shop_currency" => 643,
@@ -140,8 +146,8 @@ RSpec.describe Contactpay::Withdraw do
       let(:response) do
         {
           "data" => {
-            "balance" => 20000.0,
-            "id" => 48581287,
+            "balance" => 20_000.0,
+            "id" => 48_581_287,
             "payee_receive" => 100.23,
             "ps_currency" => 643,
             "shop_currency" => 643,
@@ -155,7 +161,7 @@ RSpec.describe Contactpay::Withdraw do
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
@@ -165,7 +171,6 @@ RSpec.describe Contactpay::Withdraw do
     subject(:result) { withdraw.status_by_shop_number(request_data) }
 
     context "when request_data is valid", vcr: "withdraw/status_by_shop_number" do
-
       let(:request_data) do
         {
           "shop_payment_id" => "shop_payment_111"
@@ -176,7 +181,7 @@ RSpec.describe Contactpay::Withdraw do
         {
           "data" => {
             "error_code" => 0,
-            "id" => 48581287,
+            "id" => 48_581_287,
             "payee_receive" => 100.23,
             "ps_currency" => 643,
             "shop_currency" => 643,
@@ -186,22 +191,20 @@ RSpec.describe Contactpay::Withdraw do
           },
           "error_code" => 0,
           "message" => "Ok",
-          "result" => true,
+          "result" => true
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
   end
 
-
   describe "#status_by_id" do
     subject(:result) { withdraw.status_by_id(request_data) }
 
     context "when request_data is valid", vcr: "withdraw/status_by_id" do
-
       let(:request_data) do
         {
           "withdraw_id" => "48581287"
@@ -212,7 +215,7 @@ RSpec.describe Contactpay::Withdraw do
         {
           "data" => {
             "error_code" => 0,
-            "id" => 48581287,
+            "id" => 48_581_287,
             "payee_receive" => 100.23,
             "ps_currency" => 643,
             "shop_currency" => 643,
@@ -222,11 +225,11 @@ RSpec.describe Contactpay::Withdraw do
           },
           "error_code" => 0,
           "message" => "Ok",
-          "result" => true,
+          "result" => true
         }
       end
 
-      it 'returns request data' do
+      it "returns request data" do
         expect(result).to eql(response)
       end
     end
