@@ -65,23 +65,59 @@ RSpec.describe Contactpay::Withdraw do
             "id" => 1,
             "name" => "Test pay method",
             "payways" => [
-              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$",
-                                                          "title" => "your account" } }, "alias" => "qiwi_topup_rub_to_wallet[mock_server,success]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 100_000.0, "min_amount" => 5.0 },
               {
-                "account_info_config" => { "account" => { "regex" => "^[0-9]{13,19}$", "title" => "your account" },
-                                           "phone" => { "regex" => "\\d+",
-                                                        "title" => "customer phone" } }, "alias" => "qiwi_topup_rub_to_card[mock_server,success]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 5.0
+                "account_info_config" => {
+                  "account" => { "regex" => "^[0-9]{11,12}$",
+                                 "title" => "your account" }
+                },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,success]",
+                "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 },
+                "max_amount" => 100_000.0, "min_amount" => 5.0
               },
-              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
-                "alias" => "qiwi_topup_rub_to_wallet[mock_server,fail]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
-              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
-                "alias" => "qiwi_topup_rub_to_wallet[mock_server,internal_server_error]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
-              { "account_info_config" => { "account" => { "regex" => "^[0-9]{11,12}$", "title" => "your account" } },
-                "alias" => "qiwi_topup_rub_to_wallet[mock_server,wallet_does_not_exist]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0 },
               {
-                "account_info_config" => { "account" => { "regex" => "^[0-9]{13,19}$", "title" => "your account" },
-                                           "phone" => { "regex" => "\\d+",
-                                                        "title" => "customer phone" } }, "alias" => "qiwi_topup_rub_to_card[mock_server,payment_forbidden]", "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 }, "max_amount" => 10_000.0, "min_amount" => 1.0
+                "account_info_config" => {
+                  "account" => {
+                    "regex" => "^[0-9]{13,19}$", "title" => "your account"
+                  },
+                  "phone" => { "regex" => "\\d+",
+                               "title" => "customer phone" }
+                },
+                "alias" => "qiwi_topup_rub_to_card[mock_server,success]",
+                "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 },
+                "max_amount" => 10_000.0, "min_amount" => 5.0
+              },
+              { "account_info_config" => {
+                  "account" => { "regex" => "^[0-9]{11,12}$",
+                                 "title" => "your account" }
+                },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,fail]", "currency" => 643,
+                "fee_config" => {
+                  "fix" => 0.0, "percent" => 2.0
+                },
+                "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              { "account_info_config" => { "account" => {
+                "regex" => "^[0-9]{11,12}$",
+                "title" => "your account"
+              } },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,internal_server_error]",
+                "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 },
+                "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              { "account_info_config" => { "account" => {
+                "regex" => "^[0-9]{11,12}$", "title" => "your account"
+              } },
+                "alias" => "qiwi_topup_rub_to_wallet[mock_server,wallet_does_not_exist]",
+                "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 },
+                "max_amount" => 10_000.0, "min_amount" => 1.0 },
+              {
+                "account_info_config" => {
+                  "account" => { "regex" => "^[0-9]{13,19}$",
+                                 "title" => "your account" },
+                  "phone" => { "regex" => "\\d+",
+                               "title" => "customer phone" }
+                },
+                "alias" => "qiwi_topup_rub_to_card[mock_server,payment_forbidden]",
+                "currency" => 643, "fee_config" => { "fix" => 0.0, "percent" => 2.0 },
+                "max_amount" => 10_000.0, "min_amount" => 1.0
               }
             ],
             "rating" => 1

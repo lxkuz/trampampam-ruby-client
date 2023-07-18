@@ -66,7 +66,8 @@ RSpec.describe Contactpay::Shop do
         {
           "data" => nil,
           "error_code" => 10,
-          "message" => "Incorrect values for parameters: sign=\"Invalid sign, string to sign: \"2023-07-18T13:23:41:357\"\"",
+          "message" =>
+          "Incorrect values for parameters: sign=\"Invalid sign, string to sign: \"2023-07-18T13:23:41:357\"\"",
           "result" => false
         }
       end
