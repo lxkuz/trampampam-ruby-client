@@ -8,7 +8,13 @@ module Contactpay
   class Withdraw < Client
     def prelim_calc(data)
       path = "/gateway/v1/withdraw/try"
-      signature_fields = %w(amount amount_type payway shop_currency shop_id)
+      signature_fields = %w(
+        amount
+        amount_type
+        payway
+        shop_currency
+        shop_id
+      )
       send_request(path: path, body: data, signature_fields: signature_fields)
     end
 
@@ -52,7 +58,8 @@ module Contactpay
       send_request(path: path, body: data, signature_fields: signature_fields)
     end
 
-    def payment_methods(data)
+    def payment_methods
+      data = { 'now' => time_now }
       path = "/gateway/v1/shop_output_config/shop"
       signature_fields = %w(
         now

@@ -6,7 +6,10 @@ require "contactpay/client"
 module Contactpay
   # Shop API
   class Shop < Client
-    def balance(data)
+    def balance
+      data = {
+        'now' => time_now
+      }
       path = "/gateway/v1/shop_balance"
       signature_fields = %w(
         now
