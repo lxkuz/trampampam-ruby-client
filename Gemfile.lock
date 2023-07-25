@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    contactpay (0.1.1)
+    contactpay (0.1.2)
       faraday (~> 1.0)
 
 GEM
