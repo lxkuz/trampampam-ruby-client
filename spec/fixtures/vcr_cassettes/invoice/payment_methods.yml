@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/shop_input_config/shop
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":356,"now":"2023-07-18T13:23:41","sign":"9b0e1a45b93d412c930c5de325c70995d949934e8d69b90d51a7f780d9307e71"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 25 Jul 2023 08:25:11 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '5762'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"id":1,"name":"Test pay method","payways":[{"add_ons_config":null,"alias":"card_core_payin_rub[mock_server,internal_server_error]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":90,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":null,"alias":"card_core_payin_rub[mock_server,create_declined_with_callback]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":88,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{},"alias":"card_core_payin_rub[mock_server,success_with_callback]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":93,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":null,"alias":"card_core_payin_rub[mock_server,timeout_error]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":89,"is_active":true,"max_amount":100000.0,"min_amount":5.0}],"rating":1},{"id":2,"name":"QIWI
+        Кошелек","payways":[{"add_ons_config":{"phone":{"comment":{"en":"Enter your
+        phone number in international format without «+»","ru":"Введите номер телефона
+        в международном формате, без «+»"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|81|1|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,success]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":1,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{"phone":{"comment":{"en":"Enter
+        your phone number in international format without «+»","ru":"Введите номер
+        телефона в международном формате, без «+»"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|81|1|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,rejected_with_callback]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":34,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{"phone":{"comment":{"en":"Enter
+        phone number in international format. List of supported country codes: 91,
+        994, 82, 372, 375, 374, 44, 998, 972, 66, 90, 507, 7, 77, 380, 371, 370, 996,
+        9955, 992, 373, 84","ru":"Введите номер телефона в международном формате.
+        Поддерживаемые коды стран: 91, 994, 82, 372, 375, 374, 44, 998, 972, 66, 90,
+        507, 7, 77, 380, 371, 370, 996, 9955, 992, 373, 84"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,success_with_callback]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":18,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{},"alias":"token_qiwi_wallet_rub[mock_server,success_with_callback]","currency":643,"fee_config":{"fix":0.0,"percent":2.2},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":190,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{"phone":{"comment":{"en":"Enter
+        your phone number in international format without «+»","ru":"Введите номер
+        телефона в международном формате, без «+»"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|81|1|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,rejected]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":4,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{"phone":{"comment":{"en":"Enter
+        your phone number in international format without «+»","ru":"Введите номер
+        телефона в международном формате, без «+»"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|81|1|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,internal_server_error]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":2,"is_active":true,"max_amount":100000.0,"min_amount":5.0},{"add_ons_config":{"phone":{"comment":{"en":"Enter
+        your phone number in international format without «+»","ru":"Введите номер
+        телефона в международном формате, без «+»"},"example":"79133456789","label":{"en":"Qiwi-wallet
+        number:","ru":"Номер Qiwi-кошелька:"},"prefix":"+","regex":"^(91|994|82|372|375|374|44|998|972|66|90|81|1|507|7|77|380|371|370|996|9955|992|373|84)[0-9]{6,14}$"}},"alias":"qiwi_wallet_rub[mock_server,timeout_error]","currency":643,"fee_config":{"fix":0.0,"percent":5.0},"fee_part_config":{"fix_part":1,"percent_part":"1.0"},"id":3,"is_active":true,"max_amount":100000.0,"min_amount":5.0}],"rating":2}],"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 08:23:41 GMT
+recorded_with: VCR 5.1.0

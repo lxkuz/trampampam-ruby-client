@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/invoice/check
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":356,"now":"2023-07-18T13:23:41","shop_order_id":"117","sign":"e02504efbfad0ce3d11cdc27b0058fd6da14635a94952d9b7f5c8f53b085e8fa"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 25 Jul 2023 11:10:55 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '537'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":{"client_price":299.45,"created":"2023-07-25T13:48:42","description":"Testing
+        invoices","error_code":0,"is_unique":true,"payment_id":33733463,"payway":"card_core_payin_rub[mock_server,success_with_callback]","processed":"2023-07-25T14:10:34","ps_currency":643,"ps_data":"{\"ps_payer_account\":
+        \"424242XXXXXX4242\", \"required_3ds\": false}","shop_amount":299.45,"shop_currency":643,"shop_id":356,"shop_order_id":"117","shop_refund":284.48,"status":4,"updated":"2023-07-25T14:10:34"},"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 08:23:41 GMT
+recorded_with: VCR 5.1.0

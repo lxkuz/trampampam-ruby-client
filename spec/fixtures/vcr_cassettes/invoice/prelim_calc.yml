@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api-test.contactpay.io/gateway/v1/invoice/try
+    body:
+      encoding: UTF-8
+      string: '{"shop_id":356,"shop_order_id":"117","amount":"299.45","currency":840,"payway":"card_core_payin_rub[mock_server,success_with_callback]","description":"Testing
+        invoices","sign":"5048623bb0c244350b070242a2b21f977c63fe0848d93a52c698e9ed9cfe605d"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 25 Jul 2023 10:40:47 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '232'
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: '{"data":{"add_ons_config":{},"info":{},"manual":{"en":"text","ru":"текст"},"payer_price":27051.71,"paymethod_id":1,"paymethod_name":"Test
+        pay method","ps_currency":643,"warning":{}},"error_code":0,"message":"Ok","result":true}
+
+        '
+    http_version:
+  recorded_at: Tue, 18 Jul 2023 08:23:41 GMT
+recorded_with: VCR 5.1.0

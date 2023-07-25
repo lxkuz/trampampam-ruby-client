@@ -73,13 +73,13 @@ module Contactpay
                    })
     end
 
-    def payment_methods(data)
+    def payment_methods
       path = '/gateway/v1/shop_input_config/shop'
       signature_fields = %w[
         now
         shop_id
       ]
-      send_request(path: path, body: data, options: {
+      send_request(path: path, options: {
                      signature_fields: signature_fields,
                      time_now: true
                    })
