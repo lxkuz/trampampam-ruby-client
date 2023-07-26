@@ -39,7 +39,7 @@ module Contactpay
     def prepare_body(body, options)
       signature_fields = options[:signature_fields] || []
       time_now = options[:time_now]
-      result = { 'shop_id' => Contactpay.config.shop_id }
+      result = { 'shop_id' => build_shop_id }
       result['now'] = build_time_now if time_now
       result.merge!(body)
       result['sign'] = generate_sign(result, signature_fields)
@@ -72,6 +72,10 @@ module Contactpay
 
     def build_time_now
       Time.now.strftime('%Y-%m-%dT%H:%M:%S')
+    end
+
+    def build_shop_id
+      Contactpay.config.shop_id
     end
   end
 end
