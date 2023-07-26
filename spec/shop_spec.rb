@@ -3,18 +3,19 @@
 require 'spec_helper'
 
 RSpec.describe Contactpay::Shop do
-  let(:invoice) { described_class.new }
+  before do
+    Timecop.freeze(Time.parse('2023-07-18T13:23:41'))
+  end
+
+  let(:invoice) { described_class.new(config) }
   let(:shop_id) { 357 }
   let(:secret_key) { '593156648d1c420dad278c4e723b5741' }
-
-  before do
-    Contactpay.configure do |config|
-      config.base_url = 'https://api-test.contactpay.io'
-      config.account_secret_key = secret_key
-      config.shop_id = shop_id
-    end
-
-    Timecop.freeze(Time.parse('2023-07-18T13:23:41'))
+  let(:config) do
+    Contactpay::Config.new(
+      account_secret_key: secret_key,
+      shop_id: shop_id,
+      base_url: 'https://api-test.contactpay.io'
+    )
   end
 
   describe '#balance' do

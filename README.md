@@ -21,10 +21,12 @@ When you get your Site approved you can use it's secret key for making API reque
 ```ruby
   require 'contactpay'
 
-  Contactpay.configure do |config|
-    config.base_url = "<BASE API URL>" # "https://api.contactpay.com.com"
-    config.account_secret_key = "<YOUR ACCOUNT SECRET KEY>"
-  end
+  contactpay_config = Contactpay::Config.new(
+    base_url: "<BASE API URL>", # "https://api.contactpay.com.com"
+    account_secret_key: "<YOUR ACCOUNT SECRET KEY>",
+    shop_id: <YOUR ACCOUNT SHOP ID>,
+    faraday_block: # if needed
+  )
 ```
 Now you can make API calls
 
@@ -32,7 +34,7 @@ Now you can make API calls
 
 #### To get yoour account balance:
 ```ruby
-  Contactpay::Shop.new.balance
+  Contactpay::Shop.new(contactpay_config).balance
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/other-shop-methods/operation/post-shop-balance)
 
@@ -42,7 +44,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/other-shop-m
 
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.prelim_calc(data)
+  Contactpay::Invoice.new(contactpay_config).prelim_calc(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-try)
@@ -51,7 +53,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-crea
 
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.create(data)
+  Contactpay::Invoice.new(contactpay_config).create(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-create)
@@ -60,7 +62,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-crea
 
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.status(data)
+  Contactpay::Invoice.new(contactpay_config).status(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-check)
@@ -68,28 +70,27 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-crea
 #### To charge hold funds:
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.hold_funds(data)
+  Contactpay::Invoice.new(contactpay_config).hold_funds(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-hold)
 
 #### To charge invoice funds:
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.charge(data)
+  Contactpay::Invoice.new(contactpay_config).charge(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-charge)
 
 #### To charge unhold funds:
 ```ruby
   data = { ... }
-  Contactpay::Invoice.new.unhold_funds(data)
+  Contactpay::Invoice.new(contactpay_config).unhold_funds(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-invoice-unhold)
 
 ####  To get payment methods for input
 ```ruby
-  data = { ... }
-  Contactpay::Invoice.new.payment_methods(data)
+  Contactpay::Invoice.new(contactpay_config).payment_methods
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-create/operation/post-shop-input-config-shop)
 
@@ -99,7 +100,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-crea
 
 ```ruby
   data = { ... }
-  Contactpay::Withdraw.new.prelim_calc(data)
+  Contactpay::Withdraw.new(contactpay_config).prelim_calc(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-try)
@@ -108,7 +109,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-cre
 
 ```ruby
   data = { ... }
-  Contactpay::Withdraw.new.check_account(data)
+  Contactpay::Withdraw.new(contactpay_config).check_account(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-check-account)
@@ -117,7 +118,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-cre
 
 ```ruby
   data = { ... }
-  Contactpay::Withdraw.new.create(data)
+  Contactpay::Withdraw.new(contactpay_config).create(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-create)
@@ -127,7 +128,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-cre
 
 ```ruby
   data = { ... }
-  Contactpay::Withdraw.new.status_by_id(data)
+  Contactpay::Withdraw.new(contactpay_config).status_by_id(data)
 ```
 
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-withdraw-status)
@@ -136,13 +137,12 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-cre
 
 ```ruby
   data = { ... }
-  Contactpay::Withdraw.new.status_by_shop_number(data)
+  Contactpay::Withdraw.new(contactpay_config).status_by_shop_number(data)
 ```
 
 #### To get possible payout methods
 ```ruby
-  data = { ... }
-  Contactpay::Withdraw.new.payment_methods(data)
+  Contactpay::Withdraw.new(contactpay_config).payment_methods
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-create/operation/post-shop-output-config-shop)
 
@@ -151,14 +151,14 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/withdraw-cre
 #### Invoice refund
 ```ruby
   data = { ... }
-  Contactpay::Refund.new.create(data)
+  Contactpay::Refund.new(contactpay_config).create(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-refund/operation/post-invoice-create-refund)
 
 #### Invoice refund status
 ```ruby
   data = { ... }
-  Contactpay::Refund.new.status(data)
+  Contactpay::Refund.new(contactpay_config).status(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-refund/operation/post-invoice-get-status-refunds)
 
@@ -167,7 +167,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-refu
 #### Payment token issue
 ```ruby
   data = { ... }
-  Contactpay::PaymentToken.new.create(data)
+  Contactpay::PaymentToken.new(contactpay_config).create(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-create-payment-token)
 
@@ -175,7 +175,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recu
 
 ```ruby
   data = { ... }
-  Contactpay::PaymentToken.new.complete(data)
+  Contactpay::PaymentToken.new(contactpay_config).complete(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-complete-payment-token)
 
@@ -183,7 +183,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recu
 
 ```ruby
   data = { ... }
-  Contactpay::PaymentToken.new.status(data)
+  Contactpay::PaymentToken.new(contactpay_config).status(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-get-status-payment-token)
 
@@ -191,7 +191,7 @@ See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recu
 
 ```ruby
   data = { ... }
-  Contactpay::PaymentToken.new.delete(data)
+  Contactpay::PaymentToken.new(contactpay_config).delete(data)
 ```
 See [API method reference](https://docs.contactpay.com/?lang=en#tag/invoice-recurrent/operation/post-delete-payment-token)
 

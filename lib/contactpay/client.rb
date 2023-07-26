@@ -13,8 +13,12 @@ require 'contactpay/errors'
 module Contactpay
   # Base API client
   class Client
+    def initialize(config)
+      @config = config
+    end
+
     def send_request(path:, headers: {}, body: {}, options: {})
-      conn = faraday_with_block(url: Contactpay.config.base_url)
+      conn = faraday_with_block(url: @config.base_url)
       conn.headers = default_headers.merge(headers)
       response = conn.post(path, prepare_body(body, options).to_json)
       interpret_response(response)
@@ -39,7 +43,7 @@ module Contactpay
     def prepare_body(body, options)
       signature_fields = options[:signature_fields] || []
       time_now = options[:time_now]
-      result = { 'shop_id' => build_shop_id }
+      result = { 'shop_id' => @config.shop_id }
       result['now'] = build_time_now if time_now
       result.merge!(body)
       result['sign'] = generate_sign(result, signature_fields)
@@ -55,14 +59,13 @@ module Contactpay
 
     def generate_sign(body, signature_fields)
       signature_fields_hash = body.slice(*signature_fields)
-      key = Contactpay.config.account_secret_key
-      line = Hash[signature_fields_hash.sort].values.join(':') + key
+      line = Hash[signature_fields_hash.sort].values.join(':') + @config.account_secret_key
       Digest::SHA2.hexdigest line
     end
 
     def faraday_with_block(options)
       Faraday.new(options)
-      block = Contactpay.config.faraday_block
+      block = @config.faraday_block
       if block
         Faraday.new(options, &block)
       else
@@ -72,10 +75,6 @@ module Contactpay
 
     def build_time_now
       Time.now.strftime('%Y-%m-%dT%H:%M:%S')
-    end
-
-    def build_shop_id
-      Contactpay.config.shop_id
     end
   end
 end

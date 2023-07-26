@@ -4,16 +4,17 @@ require 'spec_helper'
 
 RSpec.describe Contactpay::Invoice do
   before do
-    Contactpay.configure do |config|
-      config.base_url = 'https://api-test.contactpay.io'
-      config.account_secret_key = '731a577aa3084fe6ac76cdbe3be0629b'
-      config.shop_id = 356
-    end
-
     Timecop.freeze(Time.parse('2023-07-18T13:23:41'))
   end
 
-  let(:invoice) { described_class.new }
+  let(:config) do
+    Contactpay::Config.new(
+      account_secret_key: '731a577aa3084fe6ac76cdbe3be0629b',
+      shop_id: 356,
+      base_url: 'https://api-test.contactpay.io'
+    )
+  end
+  let(:invoice) { described_class.new(config) }
 
   describe '#payment_methods' do
     subject(:result) { invoice.payment_methods }

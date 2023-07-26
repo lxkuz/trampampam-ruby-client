@@ -4,16 +4,18 @@ require 'spec_helper'
 
 RSpec.describe Contactpay::Withdraw do
   before do
-    Contactpay.configure do |config|
-      config.base_url = 'https://api-test.contactpay.io'
-      config.account_secret_key = '593156648d1c420dad278c4e723b5741'
-      config.shop_id = 357
-    end
-
     Timecop.freeze(Time.parse('2023-07-18T13:23:41'))
   end
 
-  let(:withdraw) { described_class.new }
+  let(:config) do
+    Contactpay::Config.new(
+      account_secret_key: '593156648d1c420dad278c4e723b5741',
+      shop_id: 357,
+      base_url: 'https://api-test.contactpay.io'
+    )
+  end
+
+  let(:withdraw) { described_class.new(config) }
 
   describe '#prelim_calc' do
     subject(:result) { withdraw.prelim_calc(request_data) }
